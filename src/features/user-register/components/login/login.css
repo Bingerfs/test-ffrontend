@@ -1,0 +1,12 @@
+.login {
+  margin-top: 5rem;
+}
+
+.avatar {
+  margin-top: -4.5rem;
+  width:'auto';
+  height: 'auto';
+}
+.login__title {
+  margin: 1.5rem 0 1.5rem 0;
+}
