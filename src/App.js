@@ -7,7 +7,6 @@ import AppRoutes from './app.routes';
 function App() {
   return (
     <StylesProvider injectFirst>
-
     <ThemeProvider theme={theme}>
       <AppRoutes />
     </ThemeProvider>

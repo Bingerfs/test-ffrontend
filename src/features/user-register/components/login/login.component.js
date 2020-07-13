@@ -53,33 +53,19 @@ export default class Login extends Component {
       password: e.target.value
     });
   }
-/*   logIn(username, password){
+
+  async logIn(username, password) {
+    console.log(username,password)
     const usernameTrimmed = username.trim();
     const passwordTrimmed = password.trim();
+    console.log(usernameTrimmed,passwordTrimmed)
+
     this.setState({ isSubmitting: true });
-    try {
-      const response = await this.state.loginService.logIn(usernameTrimmed, passwordTrimmed);
-      localStorage.setItem(ID_TOKEN, response.data.id_token);
-      localStorage.setItem(ACCESS_TOKEN, response.data.access_token);
-      localStorage.setItem(
-        ACCESS_TOKEN_EXPIRATION_TIME,
-        this.getTheTokenExpirationTime(response.data.expires_in).toString()
-      );
-      this.setState({ isTheLoginSuccessful: true, isTheLoginEnded: true, isSubmitting: false });
-    } catch (error) {
-      this.setState({ isTheLoginEnded: true, isSubmitting: false });
-    }
-  }
- */
-  logIn(username, password) {
-    const usernameTrimmed = username.trim();
-    const passwordTrimmed = password.trim();
-    this.setState({ isSubmitting: true });
-    AuthService.login((usernameTrimmed, passwordTrimmed)).then(
+    AuthService.login(username, password).then(
         () => {
           this.setState({ isTheLoginSuccessful: true, isTheLoginEnded: true, isSubmitting: false });
 
-          this.props.history.push("/profile");
+          this.props.history.push("/home");
           window.location.reload();
         },
         error => {
