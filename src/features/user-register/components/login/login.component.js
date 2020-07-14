@@ -1,12 +1,9 @@
 import React, { Component } from "react";
-import Form from "react-validation/build/form";
-import Input from "react-validation/build/input";
-import CheckButton from "react-validation/build/button";
 
 import AuthService from '../../services/auth.service';
 
 import {
-  Grid, Paper, Container, Typography
+  Grid, Paper, Container
 } from '@material-ui/core';
 import Avatar from '@material-ui/core/Avatar';
 import {
@@ -16,12 +13,9 @@ import {
   InputPassword
 } from '../../../../shared/components/form/index';
 import { Formik } from 'formik';
-import { Redirect, Link as RouterLink } from 'react-router-dom';
+import { Redirect } from 'react-router-dom';
 import LoginValidations from './login.validations';
 import styles from './login.css';
-import { blue } from "@material-ui/core/colors";
-
-
 
 export default class Login extends Component {
   constructor(props) {
@@ -56,10 +50,6 @@ export default class Login extends Component {
   }
 
   async logIn(username, password) {
-    console.log(username,password)
-    const usernameTrimmed = username.trim();
-    const passwordTrimmed = password.trim();
-    console.log(usernameTrimmed,passwordTrimmed)
 
     this.setState({ isSubmitting: true });
     AuthService.login(username, password).then(
@@ -70,17 +60,7 @@ export default class Login extends Component {
           window.location.reload();
         },
         error => {
-          const resMessage =
-            (error.response &&
-              error.response.data &&
-              error.response.data.message) ||
-            error.message ||
-            error.toString();
-
-          this.setState({
-            loading: false,
-            message: resMessage
-          });
+            this.setState({ isTheLoginEnded: true, isSubmitting: false });
         }
       );
   
@@ -108,7 +88,7 @@ export default class Login extends Component {
           <>
 
             <Container maxWidth="xs" className={styles.login}>
-              <Paper  rounded elevation={1} variant="outlined">
+              <Paper elevation={1} variant="outlined">
                 <Container maxWidth="xl">
                   <Grid container justify="center" alignItems="center">
                     <Avatar
@@ -126,7 +106,6 @@ export default class Login extends Component {
                     <InputText
                       id="username"
                       name="username"
-                      styleInfo="login__username-input"
                       value={values.username}
                       onChange={handleChange}
                       onBlur={handleBlur}
@@ -141,7 +120,6 @@ export default class Login extends Component {
                     <InputPassword
                       id="password"
                       name="password"
-                      styleInfo="login__password-input"
                       value={values.password}
                       onChange={handleChange}
                       onBlur={handleBlur}

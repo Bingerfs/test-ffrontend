@@ -29,7 +29,6 @@ const ButtonA = (props) => (
       type={props.type}
       className={!props.styleInfo ? 'button' : `button ${props.styleInfo}`}
       size="large"
-      fontColor
     >
       <Typography variant="subtitle1">
         {props.content}
