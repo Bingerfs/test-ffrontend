@@ -1,7 +1,7 @@
 import React from 'react';
 import logo from './logo.svg';
 import './App.css';
-import ScholarList from './components/ScholarListComponent'
+import VolunteerList from './components/VolunteerListComponent'
 import EventList from './components/EventListComponent'
 
 function App() {
