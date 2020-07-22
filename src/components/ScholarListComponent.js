@@ -1,42 +1,38 @@
 import React, { Component } from 'react';
 import TableRow from '@material-ui/core/TableRow';
-import { TableCell, TableContainer, Paper, TableHead, Table, TableBody, Grid, Container, TextField, IconButton, InputBase, SvgIcon } from '@material-ui/core';
-import Search from '@material-ui/icons/Search'
-const scholars = [
-    {
-        id: 0,
-        name: "John",
-        age: "34",
-        scholarship: "Newyork",
-        hours: "10"
-    },
-    {
-        id: 1,
-        name: "Jim",
-        age: "34",
-        scholarship: "London",
-        hours: "30"
-    },
-    {
-        id: 2,
-        name: "Joe",
-        age: "34",
-        scholarship: "Newyork",
-        hours: "5"
-    }
-]
+import { TableCell, TableContainer, Paper, TableHead, Table, TableBody, Grid, Container, TextField, IconButton, InputBase, SvgIcon, Fab, Box } from '@material-ui/core';
+import Search from '@material-ui/icons/Search';
+import Add from '@material-ui/icons/Add'
+import getScholars from '../services/ScholarsService';
+
 
 
 class ScholarList extends Component{
+
     constructor(props){
         super(props);
+        this.state = {
+            scholars: null,
+            searchString: ""
+        }
+        this.state.scholars = getScholars();
     }
 
-    
+
+
+    onSearchInputChange = (event) =>{
+        var temp = [];
+        temp = getScholars();
+        temp = temp.filter((current)=>{
+            console.log(current.name);
+            return current.name.toLowerCase().includes(event.target.value.toLowerCase());
+        });
+        this.setState({searchString: event.target.value, scholars: temp});
+    }
 
 
     render(){
-        const rows = scholars.map((scholar)=>{
+        const rows = this.state.scholars.map((scholar)=>{
             return (
                 <TableRow key={scholar.id}>
                     <TableCell component="th" scope="row">{scholar.name}</TableCell>
@@ -52,13 +48,18 @@ class ScholarList extends Component{
 
         return(
             <Container>
-                <Paper>
-                <InputBase placeholder="Buscar"></InputBase>
-                <IconButton>
-                    <Search></Search>
-                </IconButton>
-                <TextField label="Outlined" variant="outlined" />
-                </Paper>
+                <Box display="flex" >
+                    <Box>
+                        <TextField label="Buscar" type="search" variant="outlined" component={Paper} onChange = {this.onSearchInputChange} id="searchInput"/>
+                    </Box>
+                    <Box position="relative" left="75%">
+                        <Fab color="primary" component={Paper}>
+                            <Add></Add>
+                        </Fab>
+                    </Box>
+                </Box>
+                <br></br>
+                <br></br>
                 <TableContainer component={Paper}>
                     <Table>
                         <TableHead>
