@@ -3,42 +3,44 @@ import TableRow from '@material-ui/core/TableRow';
 import { TableCell, TableContainer, Paper, TableHead, Table, TableBody, Grid, Container, TextField, IconButton, InputBase, SvgIcon, Fab, Box } from '@material-ui/core';
 import Search from '@material-ui/icons/Search';
 import Add from '@material-ui/icons/Add'
-import getEvents from '../services/EventsService';
+import getVolunteers from '../../../event-show/services/VolunteersService';
 
 
 
-class EventList extends Component{
+class VolunteerList extends Component{
 
     constructor(props){
         super(props);
         this.state = {
-            events: null,
+            volunteers: null,
             searchString: ""
         }
-        this.state.events = getEvents();
+        this.state.volunteers = getVolunteers();
     }
 
 
 
     onSearchInputChange = (event) =>{
         var temp = [];
-        temp = getEvents();
+        temp = getVolunteers();
         temp = temp.filter((current)=>{
             console.log(current.name);
             return current.name.toLowerCase().includes(event.target.value.toLowerCase());
         });
-        this.setState({searchString: event.target.value, events: temp});
+        this.setState({searchString: event.target.value, scholars: temp});
     }
 
 
     render(){
-        const rows = this.state.events.map((event)=>{
+        const rows = this.state.volunteers.map((volunteer)=>{
             return (
-                <TableRow key={event.id}>
-                    <TableCell component="th" scope="row">{event.name}</TableCell>
-                    <TableCell>{event.description}</TableCell>
+                <TableRow key={volunteer.id}>
+                    <TableCell component="th" scope="row">{volunteer.name}</TableCell>
+                    <TableCell>{volunteer.age}</TableCell>
+                    <TableCell>{volunteer.scholarship}</TableCell>
+                    <TableCell>{volunteer.hours}</TableCell>
                     <TableCell>
-                        <a href="#edit">Editar</a> | <a href="#borrar">Borrar</a>
+                        <a href="#edit">Editar</a> | <a href="#borrar">Borrar</a> | <a href="#view">Ver mas</a>
                     </TableCell>
                 </TableRow>
             );
@@ -63,7 +65,9 @@ class EventList extends Component{
                         <TableHead>
                             <TableRow>
                                 <TableCell>Nombre</TableCell>
-                                <TableCell>Descripcion</TableCell>
+                                <TableCell>Edad</TableCell>
+                                <TableCell>Beca</TableCell>
+                                <TableCell>Horas</TableCell>
                                 <TableCell>Opciones</TableCell>
                             </TableRow>
                         </TableHead>
@@ -77,4 +81,4 @@ class EventList extends Component{
     }
 }
 
-export default EventList;
+export default VolunteerList;
