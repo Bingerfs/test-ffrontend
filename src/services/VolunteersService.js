@@ -1,4 +1,4 @@
-const scholars = [
+const volunteers = [
     {
         id: 0,
         name: "John",
@@ -22,8 +22,8 @@ const scholars = [
     }
 ]
 
-const getScholars = () => {
-    return scholars;
+const getVolunteers = () => {
+    return volunteers;
 }
 
-export default getScholars;
+export default getVolunteers;

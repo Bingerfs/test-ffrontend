@@ -3,26 +3,26 @@ import TableRow from '@material-ui/core/TableRow';
 import { TableCell, TableContainer, Paper, TableHead, Table, TableBody, Grid, Container, TextField, IconButton, InputBase, SvgIcon, Fab, Box } from '@material-ui/core';
 import Search from '@material-ui/icons/Search';
 import Add from '@material-ui/icons/Add'
-import getScholars from '../services/ScholarsService';
+import getVolunteers from '../services/VolunteersService';
 
 
 
-class ScholarList extends Component{
+class VolunteerList extends Component{
 
     constructor(props){
         super(props);
         this.state = {
-            scholars: null,
+            volunteers: null,
             searchString: ""
         }
-        this.state.scholars = getScholars();
+        this.state.volunteers = getVolunteers();
     }
 
 
 
     onSearchInputChange = (event) =>{
         var temp = [];
-        temp = getScholars();
+        temp = getVolunteers();
         temp = temp.filter((current)=>{
             console.log(current.name);
             return current.name.toLowerCase().includes(event.target.value.toLowerCase());
@@ -32,13 +32,13 @@ class ScholarList extends Component{
 
 
     render(){
-        const rows = this.state.scholars.map((scholar)=>{
+        const rows = this.state.volunteers.map((volunteer)=>{
             return (
-                <TableRow key={scholar.id}>
-                    <TableCell component="th" scope="row">{scholar.name}</TableCell>
-                    <TableCell>{scholar.age}</TableCell>
-                    <TableCell>{scholar.scholarship}</TableCell>
-                    <TableCell>{scholar.hours}</TableCell>
+                <TableRow key={volunteer.id}>
+                    <TableCell component="th" scope="row">{volunteer.name}</TableCell>
+                    <TableCell>{volunteer.age}</TableCell>
+                    <TableCell>{volunteer.scholarship}</TableCell>
+                    <TableCell>{volunteer.hours}</TableCell>
                     <TableCell>
                         <a href="#edit">Editar</a> | <a href="#borrar">Borrar</a> | <a href="#view">Ver mas</a>
                     </TableCell>
@@ -81,4 +81,4 @@ class ScholarList extends Component{
     }
 }
 
-export default ScholarList;
+export default VolunteerList;
