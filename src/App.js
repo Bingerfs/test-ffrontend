@@ -7,7 +7,7 @@ import EventList from './features/event-show/components/event-list/EventListComp
 function App() {
   return (
     <div>
-      <EventList></EventList>
+      <VolunteerList></VolunteerList>
     </div>
   );
 }

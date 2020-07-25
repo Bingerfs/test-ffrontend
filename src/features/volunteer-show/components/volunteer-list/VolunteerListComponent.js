@@ -3,7 +3,7 @@ import TableRow from '@material-ui/core/TableRow';
 import { TableCell, TableContainer, Paper, TableHead, Table, TableBody, Grid, Container, TextField, IconButton, InputBase, SvgIcon, Fab, Box } from '@material-ui/core';
 import Search from '@material-ui/icons/Search';
 import Add from '@material-ui/icons/Add'
-import getVolunteers from '../../../event-show/services/VolunteersService';
+import getVolunteers from '../../services/VolunteersService';
 
 
 
@@ -27,7 +27,7 @@ class VolunteerList extends Component{
             console.log(current.name);
             return current.name.toLowerCase().includes(event.target.value.toLowerCase());
         });
-        this.setState({searchString: event.target.value, scholars: temp});
+        this.setState({searchString: event.target.value, volunteers: temp});
     }
 
 

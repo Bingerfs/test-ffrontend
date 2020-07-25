@@ -3,7 +3,7 @@ import TableRow from '@material-ui/core/TableRow';
 import { TableCell, TableContainer, Paper, TableHead, Table, TableBody, Grid, Container, TextField, IconButton, InputBase, SvgIcon, Fab, Box } from '@material-ui/core';
 import Search from '@material-ui/icons/Search';
 import Add from '@material-ui/icons/Add'
-import getEvents from '../../../volunteer-show/services/EventsService';
+import getEvents from '../../services/EventsService';
 
 
 
