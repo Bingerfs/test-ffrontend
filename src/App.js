@@ -1,15 +1,22 @@
-import React from 'react';
+
 import logo from './logo.svg';
 import './App.css';
 import VolunteerList from './features/volunteer-show/components/volunteer-list/VolunteerListComponent'
 import EventList from './features/event-show/components/event-list/EventListComponent'
+import React, { Component } from "react";
+import { StylesProvider, ThemeProvider } from '@material-ui/styles';
+import theme from './styles/theme';
+import AppRoutes from './app.routes';
 
+ 
 function App() {
   return (
-    <div>
-      <VolunteerList></VolunteerList>
-    </div>
+    <StylesProvider injectFirst>
+    <ThemeProvider theme={theme}>
+      <AppRoutes />
+    </ThemeProvider>
+   </StylesProvider>
   );
 }
 
-export default App;
+export default App; 
