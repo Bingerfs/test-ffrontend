@@ -7,6 +7,7 @@ import React, { Component } from "react";
 import { StylesProvider, ThemeProvider } from '@material-ui/styles';
 import theme from './styles/theme';
 import AppRoutes from './app.routes';
+import VolunteerDescription from './features/volunteer-show/components/volunteer-description/VolunteerDescriptionComponent';
 
  
 function App() {
@@ -16,7 +17,7 @@ function App() {
      // <AppRoutes />
     //</ThemeProvider>
    //</StylesProvider>
-   <EventList></EventList>
+   <VolunteerDescription></VolunteerDescription>
   );
 }
 
