@@ -8,16 +8,17 @@ import { StylesProvider, ThemeProvider } from '@material-ui/styles';
 import theme from './styles/theme';
 import AppRoutes from './app.routes';
 import VolunteerDescription from './features/volunteer-show/components/volunteer-description/VolunteerDescriptionComponent';
+import VolunteerAddEvent from './features/volunteer-show/components/volunteer-description/VolunteerAddEventComponent';
 
  
 function App() {
   return (
-    //<StylesProvider injectFirst>
-    //<ThemeProvider theme={theme}>
-     // <AppRoutes />
-    //</ThemeProvider>
-   //</StylesProvider>
-   <VolunteerDescription></VolunteerDescription>
+    /*<StylesProvider injectFirst>
+    <ThemeProvider theme={theme}>
+      <AppRoutes />
+    </ThemeProvider>
+   </StylesProvider>*/
+   <VolunteerAddEvent></VolunteerAddEvent>
   );
 }
 
