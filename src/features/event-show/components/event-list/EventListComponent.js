@@ -4,6 +4,7 @@ import { TableCell, TableContainer, Paper, TableHead, Table, TableBody, Grid, Co
 import Search from '@material-ui/icons/Search';
 import Add from '@material-ui/icons/Add'
 import getEvents from '../../services/EventsService';
+import UserService from '../../../user-register/services/user.service'
 
 
 
@@ -12,22 +13,28 @@ class EventList extends Component{
     constructor(props){
         super(props);
         this.state = {
-            events: null,
+            events: [],
             searchString: ""
         }
-        this.state.events = getEvents();
+
+    }
+
+    componentDidMount(){
+        UserService.searchEvent(this.state.searchString).then((res)=>{
+            const eventsList = res.data;
+            this.setState({
+                events: eventsList
+            });
+        });
     }
 
 
 
     onSearchInputChange = (event) =>{
-        var temp = [];
-        temp = getEvents();
-        temp = temp.filter((current)=>{
-            console.log(current.name);
-            return current.name.toLowerCase().includes(event.target.value.toLowerCase());
+        const value = event.target.value;
+        UserService.searchEvent(value).then((res)=>{
+            this.setState({searchString: value, events: res.data});
         });
-        this.setState({searchString: event.target.value, events: temp});
     }
 
 

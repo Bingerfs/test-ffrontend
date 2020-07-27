@@ -11,6 +11,20 @@ class UserService {
   getAdminBoard() {
     return axios.get(API_URL + 'admin', { headers: authHeader() });
   }
+  getAllVolunteers(){
+    return axios.get(API_URL + "volunteers");
+  }
+
+  searchVolunteer(name){
+    return axios.post(API_URL + "volunteers", {name});
+  }
+
+  searchEvent(name){
+    return axios.post(API_URL + "events", {name});
+  }
+
+
 }
+
 
 export default new UserService();
