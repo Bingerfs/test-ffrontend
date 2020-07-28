@@ -13,12 +13,11 @@ import VolunteerAddEvent from './features/volunteer-show/components/volunteer-de
  
 function App() {
   return (
-    /*<StylesProvider injectFirst>
+    <StylesProvider injectFirst>
     <ThemeProvider theme={theme}>
       <AppRoutes />
     </ThemeProvider>
-   </StylesProvider>*/
-   <VolunteerAddEvent></VolunteerAddEvent>
+   </StylesProvider>
   );
 }
 

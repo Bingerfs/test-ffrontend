@@ -41,12 +41,12 @@ class VolunteerList extends Component{
         const rows = this.state.volunteers.map((volunteer)=>{
             return (
                 <TableRow key={volunteer.ci}>
-                    <TableCell component="th" scope="row">{volunteer.name}</TableCell>
+                    <TableCell component="th" scope="row">{volunteer.name} {volunteer.lastname}</TableCell>
                     <TableCell>{volunteer.age}</TableCell>
                     <TableCell>{volunteer.scholarship}</TableCell>
                     <TableCell>{volunteer.hours}</TableCell>
                     <TableCell>
-                        <a href="#edit">Editar</a> | <a href="#borrar">Borrar</a> | <a href="#view">Ver mas</a>
+                        <a href="#edit">Editar</a> | <a href="#borrar">Borrar</a> | <a href={"/volunteer/"+volunteer.ci}>Ver mas</a>
                     </TableCell>
                 </TableRow>
             );
@@ -54,11 +54,11 @@ class VolunteerList extends Component{
 
         return(
             <Container>
-                <Box display="flex" >
+                <Box display="flex" flex="1" flexDirection="row" justifyContent="space-between"> 
                     <Box>
                         <TextField label="Buscar" type="search" variant="outlined" component={Paper} onChange = {this.onSearchInputChange} id="searchInput"/>
                     </Box>
-                    <Box position="relative" left="75%">
+                    <Box>
                         <Fab color="primary" component={Paper}>
                             <Add></Add>
                         </Fab>

@@ -1,23 +1,27 @@
 import React, { Component } from 'react';
 import { Modal, Button, Box, Paper, Card, Container, CardMedia, Typography, CardActions } from '@material-ui/core';
 import ButtonA from '../../../../shared/components/form/button/button'
+import { useParams } from 'react-router-dom';
+import userService from '../../../user-register/services/user.service';
 
-const vol = {
-    name: "Hector",
-    birthday: "24/03/1998",
-    lastname: "Hidalgo",
-    ci: "7862365",
-    phoneNumber: "79789705",
-    scholarship: "Access",
-    description: "Something idk"
-}
 class VolunteerDescription extends Component{
+
     constructor(props){
         super(props);
         this.state={
-            volunteer: vol,
+            volunteer: {},
             open: false
         }
+    }
+
+    componentDidMount(){
+        let {id} = this.props.match.params;
+        console.log(id);
+        userService.searchVolunteerById(id).then((res)=>{
+            const volunteerData= res.data;
+            this.setState({volunteer: volunteerData});
+            console.log(this.state.volunteer);
+        });
     }
 
    

@@ -23,6 +23,9 @@ class UserService {
     return axios.post(API_URL + "events", {name});
   }
 
+  searchVolunteerById(ci){
+    return axios.post(API_URL + "volunteer", {ci});
+  }
 
 }
 
