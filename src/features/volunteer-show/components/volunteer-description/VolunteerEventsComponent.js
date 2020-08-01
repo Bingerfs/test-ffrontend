@@ -1,26 +1,29 @@
 import React, { Component } from 'react';
 import TableRow from '@material-ui/core/TableRow';
 import { TableCell, TableContainer, Paper, TableHead, Table, TableBody, Grid, Container, TextField, IconButton, InputBase, SvgIcon, Fab, Box } from '@material-ui/core';
+import Search from '@material-ui/icons/Search';
 import Add from '@material-ui/icons/Add'
 import UserService from '../../../user-register/services/user.service'
 
 
 
-class VolunteerList extends Component{
+class VolunteerEventsList extends Component{
 
     constructor(props){
         super(props);
         this.state = {
-            volunteers: [],
+            events: [],
             searchString: ""
         }
+
     }
 
     componentDidMount(){
-        UserService.searchVolunteer(this.state.searchString).then((res)=>{
-            const volunteersList = res.data;
-            this.setState({volunteers: volunteersList});
-            
+        UserService.searchVolunteerEvents(9, this.state.searchString).then((res)=>{
+            const eventsList = res.data;
+            this.setState({
+                events: eventsList
+            });
         });
     }
 
@@ -28,24 +31,21 @@ class VolunteerList extends Component{
 
     onSearchInputChange = (event) =>{
         const value = event.target.value;
-        UserService.searchVolunteer(value).then((res)=>{
-            this.setState({searchString: value, volunteers: res.data});
+        UserService.searchVolunteerEvents(9, value).then((res)=>{
+            this.setState({searchString: value, events: res.data});
         });
     }
 
 
     render(){
-        console.log(this.state.volunteers);
-        const rows = this.state.volunteers.map((volunteer)=>{
+        const rows = this.state.events.map((volunteerEvent)=>{
             return (
-                <TableRow key={volunteer.id}>
-                    <TableCell component="th" scope="row">{volunteer.name} {volunteer.lastname}</TableCell>
-                    <TableCell>{volunteer.age}</TableCell>
-                    <TableCell>{volunteer.scholarship}</TableCell>
-                    <TableCell>{volunteer.hours}</TableCell>
-                    <TableCell>
-                        <a href="#edit">Editar</a> | <a href="#borrar">Borrar</a> | <a href={"/volunteer/"+volunteer.id}>Ver mas</a>
-                    </TableCell>
+                <TableRow key={volunteerEvent.id}>
+                    <TableCell component="th" scope="row">{volunteerEvent.event.name}</TableCell>
+                    <TableCell>{volunteerEvent.event.description}</TableCell>
+                    <TableCell>{volunteerEvent.hours}</TableCell>
+                    <TableCell>{volunteerEvent.startingDate}</TableCell>
+                    <TableCell>{volunteerEvent.endingDate}</TableCell>
                 </TableRow>
             );
         });
@@ -56,11 +56,7 @@ class VolunteerList extends Component{
                     <Box>
                         <TextField label="Buscar" type="search" variant="outlined" component={Paper} onChange = {this.onSearchInputChange} id="searchInput"/>
                     </Box>
-                    <Box>
-                        <Fab color="primary" component={Paper}>
-                            <Add></Add>
-                        </Fab>
-                    </Box>
+                    
                 </Box>
                 <br></br>
                 <br></br>
@@ -68,11 +64,11 @@ class VolunteerList extends Component{
                     <Table>
                         <TableHead>
                             <TableRow>
-                                <TableCell>Nombre</TableCell>
-                                <TableCell>Edad</TableCell>
-                                <TableCell>Beca</TableCell>
+                                <TableCell>Actividad</TableCell>
+                                <TableCell>Descripcion</TableCell>
                                 <TableCell>Horas</TableCell>
-                                <TableCell>Opciones</TableCell>
+                                <TableCell>Fecha inicio</TableCell>
+                                <TableCell>Fecha fin</TableCell>
                             </TableRow>
                         </TableHead>
                         <TableBody>
@@ -85,4 +81,4 @@ class VolunteerList extends Component{
     }
 }
 
-export default VolunteerList;
+export default VolunteerEventsList;

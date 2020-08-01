@@ -23,8 +23,16 @@ class UserService {
     return axios.post(API_URL + "events", {name});
   }
 
-  searchVolunteerById(ci){
-    return axios.post(API_URL + "volunteer", {ci});
+  searchVolunteerById(id){
+    return axios.post(API_URL + "volunteer", {id});
+  }
+
+  addEventToVolunteer(startingDate, endingDate, hours, institution, description, volunteer, event){
+    return axios.post(API_URL + "addVolunteerEvent", {startingDate, endingDate, hours, institution, description, volunteer, event});
+  }
+
+  searchVolunteerEvents(volunteer, eventName){
+    return axios.post(API_URL + "getVolunteerEvents", {volunteer, eventName});
   }
 
 }

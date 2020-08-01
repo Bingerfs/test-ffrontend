@@ -9,6 +9,7 @@ import theme from './styles/theme';
 import AppRoutes from './app.routes';
 import VolunteerDescription from './features/volunteer-show/components/volunteer-description/VolunteerDescriptionComponent';
 import VolunteerAddEvent from './features/volunteer-show/components/volunteer-description/VolunteerAddEventComponent';
+import VolunteerEventsList from './features/volunteer-show/components/volunteer-description/VolunteerEventsComponent';
 
  
 function App() {
@@ -18,6 +19,7 @@ function App() {
       <AppRoutes />
     </ThemeProvider>
    </StylesProvider>
+   
   );
 }
 

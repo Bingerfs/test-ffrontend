@@ -8,16 +8,16 @@ class VolunteerDescription extends Component{
 
     constructor(props){
         super(props);
+        let {id}=this.props.match.params;
         this.state={
             volunteer: {},
-            open: false
+            open: false,
+            volunteerId: id 
         }
     }
 
     componentDidMount(){
-        let {id} = this.props.match.params;
-        console.log(id);
-        userService.searchVolunteerById(id).then((res)=>{
+        userService.searchVolunteerById(this.state.volunteerId).then((res)=>{
             const volunteerData= res.data;
             this.setState({volunteer: volunteerData});
             console.log(this.state.volunteer);
@@ -65,8 +65,8 @@ class VolunteerDescription extends Component{
                             <Box display="flex" flex="3" flexDirection="column">
                                 <Typography variant="body2" color ="textSecondary">ACTIVIDADES:</Typography>
                                 <CardActions>
-                                    <ButtonA content="Agregar"></ButtonA>
-                                    <ButtonA content="Ver"></ButtonA>
+                                    <Button  href={"/volunteer/addEvent/"+ this.state.volunteerId}>Agregar</Button>
+                                    <Button  href={"/volunteer/"+ this.state.volunteerId + "/events"}>Ver</Button>
                                 </CardActions>
                             </Box>
                         </Box>
