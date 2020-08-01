@@ -65,8 +65,8 @@ class VolunteerDescription extends Component{
                             <Box display="flex" flex="3" flexDirection="column">
                                 <Typography variant="body2" color ="textSecondary">ACTIVIDADES:</Typography>
                                 <CardActions>
-                                    <Button  href={"/volunteer/addEvent/"+ this.state.volunteerId}>Agregar</Button>
-                                    <Button  href={"/volunteer/"+ this.state.volunteerId + "/events"}>Ver</Button>
+                                    <ButtonA  href={"/volunteer/addEvent/"+ this.state.volunteerId} content="Agregar"></ButtonA>
+                                    <ButtonA  href={"/volunteer/"+ this.state.volunteerId + "/events"} content= "Ver"></ButtonA>
                                 </CardActions>
                             </Box>
                         </Box>
