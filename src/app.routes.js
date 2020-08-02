@@ -13,12 +13,16 @@ import VolunteerEventsList from './features/volunteer-show/components/volunteer-
 import CreateVolunteer from './features/volunteer-register/components/create/createVolunteer.component'
 import CreateEvent from './features/event-register/components/event-create/CreateEventComponent';
 
+var currentLocation = window.location.pathname;
+console.log(currentLocation);
+var isLogin = currentLocation == '/login';
+
 const AppRoutes = () => (
   <>
   
   <Router>
-  <Navbar></Navbar>
-  <Route exact path="/" render={() => <Redirect to="/login" />} />
+    {isLogin ? (<div></div> ): (<Navbar></Navbar>   )}
+   <Route exact path="/" render={() => <Redirect to="/login" />} />
     <Switch>
       <Suspense fallback={<h1>Cargando...</h1>}>
         <Route exact path="/login" component={Login} />

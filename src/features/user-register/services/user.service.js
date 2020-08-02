@@ -24,6 +24,10 @@ class UserService {
     return axios.post(API_URL + "createVolunteer", {volunteerData});
   }
 
+  createEvent(values){
+    return axios.post(API_URL + "createEvent", {name: values.name, description: values.description, inCharge: values.inCharge});
+  }
+
   searchVolunteerById(id){
     return axios.post(API_URL + "volunteer", {id});
   }

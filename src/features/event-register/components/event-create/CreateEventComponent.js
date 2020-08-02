@@ -6,13 +6,14 @@ import {Grid, Paper, TextField, Container} from '@material-ui/core';
 import { Formik } from 'formik';
 import { Redirect } from 'react-router-dom';
 import { ButtonA, InputText } from '../../../../shared/components/form';
+import userService from '../../../user-register/services/user.service';
 
 export default class CreateEvent extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      nameActivity: '',
-      nameManager: '',
+      name: '',
+      inCharge: '',
       description: '',
 
     }
@@ -23,47 +24,52 @@ export default class CreateEvent extends Component {
     state[property] = value;
     this.setState(state);
   }
-  submitForm = () => {
-    console.log(this.state);
+  submitCrateEvent(values){
+      userService.createEvent(values);
   }
 
 
 
   render() {
     return (
-     
-      <Container   maxWidth="sm"  style={{  minHeight: '100vh' }}  >
+        <Formik 
+        initialValues = {this.state}
+        onSubmit = {(values)=> this.submitCrateEvent(values)}
+        render ={({
+            values, errors, handleChange, handleBlur, touched, handleSubmit, setFieldValue
+        })=>
+      (<Container   maxWidth="sm"  style={{  minHeight: '100vh' }}  >
         <Paper  elevation={1} variant="outlined" style={{marginTop: '20%'}} >
         <Container maxWidth="xl" >
         <h3> Completa los datos para registrar una nueva actividad</h3>
-          <form>
+          <form onSubmit={handleSubmit}>
             <Grid container spacing={3}  >
               <Grid item xs={6} >
 
                 <InputText
-                  onChange={(ev) => { this.syncChanges(ev.target.value, 'nameActivity') }}
-                  id="nameActivity"
+                  onChange={handleChange}
+                  id="name"
                   label="Nombre de la actividad"
-                  type="nameActivity"
-                  value={this.state.nameActivity} />
+                  type="name"
+                  value={values.name} />
               </Grid>
               <Grid item xs={6} >
 
                 <InputText
-                  onChange={(ev) => { this.syncChanges(ev.target.value, 'nameManager') }}
-                  id="nameManager"
+                  onChange={handleChange}
+                  id="inCharge"
                   label="Nombre del encargado"
-                  type="nameManager"
-                  value={this.state.nameManager} />
+                  type="inCharge"
+                  value={values.inCharge} />
               </Grid>
               <Grid item xs={12}>
                 
                 <TextField
-                            onChange={(ev) => { this.syncChanges(ev.target.value, 'description') }}
+                            onChange={handleChange}
                             id="description"
                             label="Descripción"
                             type="description"
-                            value={this.state.description}
+                            value={values.description}
                             multiline
                             variant="outlined"
                             rows={4}
@@ -75,7 +81,6 @@ export default class CreateEvent extends Component {
               <br />
               <Grid item xs={12}>
                 <ButtonA
-                  onClick={this.submitForm}
                   id="register"
                   name="register"
                   type="submit"
@@ -90,7 +95,8 @@ export default class CreateEvent extends Component {
           <br />
         </Paper >
 
-      </Container >
+      </Container >)}
+      />
     );
   }
 }
