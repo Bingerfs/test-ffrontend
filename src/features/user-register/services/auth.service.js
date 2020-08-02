@@ -21,6 +21,7 @@ class AuthService {
     localStorage.removeItem("user");
   }
 
+  
 }
 
 export default new AuthService();
