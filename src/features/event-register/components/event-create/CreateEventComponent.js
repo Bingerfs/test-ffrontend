@@ -26,6 +26,8 @@ export default class CreateEvent extends Component {
   }
   submitCrateEvent(values){
       userService.createEvent(values);
+      this.props.history.push("/events");
+
   }
 
 

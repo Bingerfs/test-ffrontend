@@ -44,6 +44,8 @@ export default class CreateVolunteer extends Component {
  submitCreateVolunteer(values){
      console.log(values);
      userService.createVolunteer(values);
+     this.props.history.push("/volunteers");
+
  }
  
   

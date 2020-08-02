@@ -35,6 +35,8 @@ class VolunteerAddEvent extends Component{
     submitAddEvent(values){
         userService.addEventToVolunteer(values.startingDate, values.endingDate, values.hours, 
             values.institution, values.description, values.volunteerId, values.eventId);
+            this.props.history.push("/volunteers");
+
     }
 
     render(){
