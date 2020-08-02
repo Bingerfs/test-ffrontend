@@ -4,13 +4,16 @@ import Toolbar from "@material-ui/core/Toolbar";
 import MenuItem from "@material-ui/core/MenuItem";
 import Avatar from "@material-ui/core/Avatar";
 import { Grid } from '@material-ui/core';
+import { NavLink, Link } from 'react-router-dom';
 
 class Navbar extends Component {
     render() {
         return (
 
             <AppBar style={{
-                marginTop: "20px"
+                marginTop: "20px",
+                marginBottom: "40px",
+                position: "relative"
             }} >
                 <Toolbar >
                     <Avatar
@@ -30,12 +33,16 @@ class Navbar extends Component {
                         <MenuItem>
                             <p>INICIO</p>
                         </MenuItem>
+                        <Link to="/volunteers" style={{textDecoration: "none", color:"white"}}>
                         <MenuItem>
-                            <p>VOLUNTARIO</p>
+                            <p>VOLUNTARIOS</p>
                         </MenuItem>
+                        </Link>
+                        <Link to="/events" style={{textDecoration: "none", color:"white"}}>
                         <MenuItem>
                             <p>ACTIVIDADES</p>
                         </MenuItem>
+                        </Link>
                     </Grid>
                     <Grid
                         container
