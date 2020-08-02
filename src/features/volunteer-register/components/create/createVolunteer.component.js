@@ -6,6 +6,8 @@ import FormControlLabel from '@material-ui/core/FormControlLabel';
 import {InputText,ButtonA,} from '../../../../shared/components/form/index';
 import DateFnsUtils from '@date-io/date-fns'
 import { MuiPickersUtilsProvider, KeyboardDatePicker } from '@material-ui/pickers';
+import { Formik } from 'formik';
+import userService from '../../../user-register/services/user.service';
 
 
 
@@ -13,21 +15,23 @@ export default class CreateVolunteer extends Component {
  constructor(props){
      super(props);
      this.state={
-         name: '',
-         lastName: '',
-         ci: '',
-         email: '',
-         phoneNumber: '',
-         birthday: '',
-         schooling: '',
-         scholarshipName: '',
-         scholar: false,
-         descriptionOutstandingExperience: '',
-         placeOutstandingExperience: '',
-         durationOutstandingExperience: '',
-         descriptionVolunteerExperience: '',
-         placeVolunteerExperience: '',
-         durationVolunteerExperience: '',
+            volunteerData: {
+                name: '',
+                lastname: '',
+                ci: '',
+                email: '',
+                phoneNumber: '',
+                birthday: '',
+                schooling: '',
+                scholarship: '',
+                scholar: false,
+                descriptionOutstandingExperience: '',
+                placeOutstandingExperience: '',
+                durationOutstandingExperience: '',
+                descriptionVolunteerExperience: '',
+                placeVolunteerExperience: '',
+                durationVolunteerExperience: '',
+         }
         //  isTheCreateVolunteerSuccessful: false,
      }
      
@@ -37,57 +41,67 @@ export default class CreateVolunteer extends Component {
      state[property]=value;
      this.setState(state);
  }
- submitForm = ()=>{
-    console.log(this.state);
+ submitCreateVolunteer(values){
+     console.log(values);
+     userService.createVolunteer(values);
  }
  
   
   render() {
-    
+    console.log(this.state);
     return (
-        
+        <Formik
+        initialValues = {this.state.volunteerData}
+        onSubmit = {(values)=> this.submitCreateVolunteer(values)}
+        render ={({
+            values, errors, handleChange, handleBlur, touched, handleSubmit, setFieldValue
+        })=>(
         <Container   maxWidth="sm"  style={{  minHeight: '100vh' }}  >
         <Paper  elevation={1} variant="outlined" style={{marginTop: '20%'}} >
         <Container maxWidth="xl" >
         <h3> Completa los datos para registrar un nuevo voluntario</h3>
-          <form>
+          <form onSubmit={handleSubmit}>
         
             <Grid container spacing={1}  >
               <Grid item xs={6} >
                     <InputText
-                        onChange={(ev)=>{this.syncChanges(ev.target.value,'name')}}
+                        onChange={handleChange}
                         id="name"
+                        name="name"
                         label="Nombre"
                         type="name"
-                        value={this.state.name}/>
+                        value={values.name}/>
               </Grid>
               <Grid item xs={6} >
 
                     <InputText 
-                        onChange={(ev)=>{this.syncChanges(ev.target.value,'lastName')}}
-                        id="lastName"
+                        onChange={handleChange}
+                        id="lastname"
+                        name="lastname"
                         label="Apellido"
-                        type="lastName" 
-                        value={this.state.lastName}/>
+                        type="lastname" 
+                        value={values.lastname}/>
                     </Grid>
               <Grid item xs={3} >
 
                     <InputText
-                        onChange={(ev)=>{this.syncChanges(ev.target.value,'ci')}} 
+                        onChange={handleChange} 
                         id="ci" 
+                        name="ci" 
                         label="CI"
                         type="ci" 
-                        value={this.state.ci}/>
+                        value={values.ci}/>
                     </Grid>
               
               <Grid item xs={3} >
 
                     <InputText 
-                        onChange={(ev)=>{this.syncChanges(ev.target.value,'phoneNumber')}}
+                        onChange={handleChange}
                         id="phoneNumber" 
+                        name="phoneNumber" 
                         label="Celular"
                         type="phoneNumber"
-                        value={this.state.phoneNumber}/>
+                        value={values.phoneNumber}/>
                     </Grid>
                 <Grid item xs={6} > 
                 
@@ -98,6 +112,9 @@ export default class CreateVolunteer extends Component {
                         margin="normal"
                         inputVariant = "outlined"
                         id="birthday"
+                        inputValue={values.birthday}
+                        onChange={(date, value)=>setFieldValue("birthday", value)}
+                        name="birthday"
                         label="Fecha de nacimiento"
                         KeyboardButtonProps={{
                             'aria-label': 'change date',
@@ -108,28 +125,31 @@ export default class CreateVolunteer extends Component {
               <Grid item xs={6} >
 
                     <InputText 
-                        onChange={(ev)=>{this.syncChanges(ev.target.value,'email')}}
+                        onChange={handleChange}
                         id="email" 
+                        name="email" 
                         label="Email"
                         type="email" 
-                        value={this.state.email}/>
+                        value={values.email}/>
                     </Grid>
                 <Grid item xs={6} >
 
                     <InputText
-                        onChange={(ev)=>{this.syncChanges(ev.target.value,'schooling')}} 
+                        onChange={handleChange} 
                         id="schooling"
+                        name="schooling"
                         label="Estudio"
                         type="schooling" 
-                        value={this.state.schooling}/>
+                        value={values.schooling}/>
                     </Grid>
               <Grid item xs={4} >
                     <FormControlLabel
                     control={
                     <Checkbox
-                        value={this.state.scholar}
-                        onChange={(ev)=>{this.syncChanges(ev.target.value,'scholar')}}
+                        value={values.scholar}
+                        onChange={handleChange}
                         name="scholar"
+                        id="scholar"
                         color="primary"
                     />
                     }
@@ -140,11 +160,12 @@ export default class CreateVolunteer extends Component {
               <Grid item xs={8} >
 
                     <InputText
-                        onChange={(ev)=>{this.syncChanges(ev.target.value,'scholarshipName')}} 
-                        id="scholarshipName" 
+                        onChange={handleChange} 
+                        id="scholarship" 
+                        name="scholarship" 
                         label="Nombre de la beca"
                         type="scholarshipName" 
-                        value={this.state.scholarshipName}/>
+                        value={values.scholarship}/>
                     </Grid>
               
               
@@ -153,11 +174,12 @@ export default class CreateVolunteer extends Component {
                       <h4> Experiencia sobresaliente</h4>
 
                             <TextField
-                            onChange={(ev)=>{this.syncChanges(ev.target.value,'descriptionOutstandingExperience')}}
-                            id="descriptionOutstandingExperience"  
+                            onChange={handleChange}
+                            id="descriptionOutstandingExperience" 
+                            name="descriptionOutstandingExperience"  
                             label="Cuéntanos alguna experiencia sobresaliente"
                             type="descriptionOutstandingExperience" 
-                            value={this.state.descriptionOutstandingExperience}
+                            value={values.descriptionOutstandingExperience}
                             multiline
                             variant="outlined"
                             rows={4}
@@ -168,8 +190,9 @@ export default class CreateVolunteer extends Component {
                 <Grid item xs={6} >
 
                             <InputText 
-                                onChange={(ev)=>{this.syncChanges(ev.target.value,'placeOutstandingExperience')}}
-                                id="placeOutstandingExperience"  
+                                onChange={handleChange}
+                                id="placeOutstandingExperience" 
+                                name="placeOutstandingExperience"  
                                 label="Lugar"
                                 type="placeOutstandingExperience" 
                                 value={this.state.placeOutstandingExperience}/>
@@ -177,8 +200,9 @@ export default class CreateVolunteer extends Component {
                     <Grid item xs={6} >
 
                             <InputText 
-                                onChange={(ev)=>{this.syncChanges(ev.target.value,'durationOutstandingExperience')}}
-                                id="durationOutstandingExperience"  
+                                onChange={handleChange}
+                                id="durationOutstandingExperience" 
+                                name="durationOutstandingExperience"  
                                 label="Duración"
                                 type="durationOutstandingExperience" 
                                 value={this.state.durationOutstandingExperience}/>
@@ -188,8 +212,9 @@ export default class CreateVolunteer extends Component {
                        <h4>Experiencia de voluntariado</h4>
                     
                             <TextField
-                            onChange={(ev)=>{this.syncChanges(ev.target.value,'descriptionVolunteerExperience')}}
+                            onChange={handleChange}
                             id="descriptionVolunteerExperience"  
+                            name="descriptionVolunteerExperience"  
                             label="Cuéntanos tu experiencia de voluntariado"
                             type="descriptionVolunteerExperience" 
                             value={this.state.descriptionVolunteerExperience}
@@ -204,8 +229,9 @@ export default class CreateVolunteer extends Component {
                 <Grid item xs={6} >
 
                     <InputText 
-                        onChange={(ev)=>{this.syncChanges(ev.target.value,'placeVolunteerExperience')}}
-                        id="placeVolunteerExperience"  
+                        onChange={handleChange}
+                        id="placeVolunteerExperience" 
+                        name="placeVolunteerExperience"  
                         label="Lugar"
                         type="placeVolunteerExperience" 
                         value={this.state.placeVolunteerExperience}/>
@@ -213,8 +239,9 @@ export default class CreateVolunteer extends Component {
                     <Grid item xs={6} >
 
                     <InputText 
-                        onChange={(ev)=>{this.syncChanges(ev.target.value,'durationVolunteerExperience')}}
-                        id="durationVolunteerExperience"  
+                        onChange={handleChange}
+                        id="durationVolunteerExperience"
+                        name="durationVolunteerExperience"  
                         label="Duración"
                         type="durationVolunteerExperience" 
                         value={this.state.durationVolunteerExperience}/>
@@ -224,7 +251,6 @@ export default class CreateVolunteer extends Component {
               <br />
         <Grid item xs={12}>
         <ButtonA
-            onClick={this.submitForm}
             id="register"
             name="register"
             type="submit"
@@ -242,7 +268,6 @@ export default class CreateVolunteer extends Component {
         </Paper >
 
       </Container >
-    );
-  }
-  
-}
+    )
+  } />);
+}}

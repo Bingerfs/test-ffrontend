@@ -1,7 +1,7 @@
 import axios from 'axios';
 import authHeader from './auth-header';
 
-const API_URL = 'http://localhost:8080/api/test/';
+const API_URL = 'http://localhost:8080/api/';
 
 class UserService {
   getPublicContent() {
@@ -11,9 +11,6 @@ class UserService {
   getAdminBoard() {
     return axios.get(API_URL + 'admin', { headers: authHeader() });
   }
-  getAllVolunteers(){
-    return axios.get(API_URL + "volunteers");
-  }
 
   searchVolunteer(name){
     return axios.post(API_URL + "volunteers", {name});
@@ -21,6 +18,10 @@ class UserService {
 
   searchEvent(name){
     return axios.post(API_URL + "events", {name});
+  }
+
+  createVolunteer(volunteerData){
+    return axios.post(API_URL + "createVolunteer", {volunteerData});
   }
 
   searchVolunteerById(id){
