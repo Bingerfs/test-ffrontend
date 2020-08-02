@@ -3,6 +3,7 @@ import TableRow from '@material-ui/core/TableRow';
 import { TableCell, TableContainer, Paper, TableHead, Table, TableBody, Grid, Container, TextField, IconButton, InputBase, SvgIcon, Fab, Box } from '@material-ui/core';
 import Add from '@material-ui/icons/Add'
 import UserService from '../../../user-register/services/user.service'
+import { Link } from 'react-router-dom';
 
 
 
@@ -57,9 +58,11 @@ class VolunteerList extends Component{
                         <TextField label="Buscar" type="search" variant="outlined" component={Paper} onChange = {this.onSearchInputChange} id="searchInput"/>
                     </Box>
                     <Box>
+                        <Link to="/createVolunteer">
                         <Fab color="primary" component={Paper}>
                             <Add></Add>
                         </Fab>
+                        </Link>
                     </Box>
                 </Box>
                 <br></br>

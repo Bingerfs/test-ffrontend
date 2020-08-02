@@ -5,6 +5,7 @@ import Search from '@material-ui/icons/Search';
 import Add from '@material-ui/icons/Add'
 import getEvents from '../../services/EventsService';
 import UserService from '../../../user-register/services/user.service'
+import { Link } from 'react-router-dom';
 
 
 
@@ -53,17 +54,18 @@ class EventList extends Component{
 
         return(
             <Container>
-                <Box display="flex" >
+                <Box display="flex" flex="1" flexDirection="row" justifyContent="space-between"> 
                     <Box>
                         <TextField label="Buscar" type="search" variant="outlined" component={Paper} onChange = {this.onSearchInputChange} id="searchInput"/>
                     </Box>
-                    <Box position="relative" left="75%">
+                    <Box>
+                        <Link to="/createEvent">
                         <Fab color="primary" component={Paper}>
                             <Add></Add>
                         </Fab>
+                        </Link>
                     </Box>
                 </Box>
-                <br></br>
                 <br></br>
                 <TableContainer component={Paper}>
                     <Table>

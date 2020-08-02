@@ -10,6 +10,8 @@ import AppRoutes from './app.routes';
 import VolunteerDescription from './features/volunteer-show/components/volunteer-description/VolunteerDescriptionComponent';
 import VolunteerAddEvent from './features/volunteer-show/components/volunteer-description/VolunteerAddEventComponent';
 import VolunteerEventsList from './features/volunteer-show/components/volunteer-description/VolunteerEventsComponent';
+import CreateEvent from './features/event-register/components/event-create/CreateEventComponent';
+import CreateVolunteer from './features/volunteer-register/components/create/createVolunteer.component';
 
  
 function App() {
@@ -19,7 +21,6 @@ function App() {
       <AppRoutes />
     </ThemeProvider>
    </StylesProvider>
-   
   );
 }
 

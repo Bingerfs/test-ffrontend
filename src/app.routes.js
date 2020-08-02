@@ -11,6 +11,7 @@ import VolunteerAddEvent from './features/volunteer-show/components/volunteer-de
 import VolunteerEventsList from './features/volunteer-show/components/volunteer-description/VolunteerEventsComponent';
 
 import CreateVolunteer from './features/volunteer-register/components/create/createVolunteer.component'
+import CreateEvent from './features/event-register/components/event-create/CreateEventComponent';
 
 const AppRoutes = () => (
   <>
@@ -23,6 +24,7 @@ const AppRoutes = () => (
         <Route exact path="/login" component={Login} />
         <Route exact path="/home" component={Home} />
         <Route exact path="/createVolunteer" component={CreateVolunteer} />
+        <Route exact path= "/createEvent" component={CreateEvent} />
         <Route exact path="/volunteers" component={VolunteerList} />
         <Route exact path= "/events" component={EventList} />
         <Route exact path= "/volunteer/:id" component={VolunteerDescription} />
