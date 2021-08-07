@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import { Modal, Button, Box, Paper, Card, Container, CardMedia, Typography, CardActions } from '@material-ui/core';
-import ButtonA from '../../../../shared/components/form/button/button'
-import { useParams } from 'react-router-dom';
+import ButtonA from '../../../../shared/components/form/button/button';
 import userService from '../../../user-register/services/user.service';
 
 class VolunteerDescription extends Component{

@@ -19,24 +19,41 @@ export default class CreateEvent extends Component {
     }
 
   }
+
+  componentDidMount() {
+    if(this.props.match.params.id) {
+      userService.searchEventById(this.props.match.params.id).then(events => {
+        const { name, inCharge, description } = events.data;
+        this.setState({
+          name,
+          inCharge,
+          description
+        });
+      });
+    }
+  }
+
   syncChanges(value, property) {
     let state = {};
     state[property] = value;
     this.setState(state);
   }
-  submitCrateEvent(values){
-      userService.createEvent(values);
-      this.props.history.push("/events");
 
+  async submitEvent(values) {
+    if(this.props.match.params.id) {
+      await userService.updateEvent(this.props.match.params.id, values);
+    } else {
+      await userService.createEvent(values);
+    }
+    this.props.history.push("/events");
   }
-
-
 
   render() {
     return (
         <Formik 
+        enableReinitialize
         initialValues = {this.state}
-        onSubmit = {(values)=> this.submitCrateEvent(values)}
+        onSubmit = {(values)=> this.submitEvent(values)}
         render ={({
             values, errors, handleChange, handleBlur, touched, handleSubmit, setFieldValue
         })=>

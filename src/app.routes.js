@@ -34,6 +34,8 @@ const AppRoutes = () => (
         <Route exact path= "/volunteer/:id" component={VolunteerDescription} />
         <Route exact path= "/volunteer/addEvent/:id" component={VolunteerAddEvent} />
         <Route exact path= "/volunteer/:id/events" component={VolunteerEventsList} />
+        <Route exact path='/edit-volunteer/:id' component={ CreateVolunteer } />
+        <Route exact path='/edit-event/:id' component={ CreateEvent } />
       </Suspense>
     </Switch>
   </Router>

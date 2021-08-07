@@ -1,8 +1,10 @@
 import React, { Component } from 'react';
 import TableRow from '@material-ui/core/TableRow';
 import { TableCell, TableContainer, Paper, TableHead, Table, TableBody, Grid, Container, TextField, IconButton, InputBase, SvgIcon, Fab, Box } from '@material-ui/core';
-import Add from '@material-ui/icons/Add'
-import UserService from '../../../user-register/services/user.service'
+import Add from '@material-ui/icons/Add';
+import { parse, formatDistanceToNowStrict } from 'date-fns';
+import { es } from 'date-fns/locale';
+import UserService from '../../../user-register/services/user.service';
 import { Link } from 'react-router-dom';
 
 
@@ -34,18 +36,26 @@ class VolunteerList extends Component{
         });
     }
 
+    onDeleteButtonClick = (id) => {
+        UserService.deleteVolunteerById(id).then(res => {
+            let updatedList = this.state.volunteers;
+            updatedList = updatedList.filter(volunteer => volunteer.id !== id);
+            this.setState({ volunteers: updatedList });
+        });
+    }
+
 
     render(){
-        console.log(this.state.volunteers);
         const rows = this.state.volunteers.map((volunteer)=>{
+            const birthdayDate = parse(volunteer.birthday, 'dd/MM/yyyy', new Date());
             return (
                 <TableRow key={volunteer.id}>
                     <TableCell component="th" scope="row">{volunteer.name} {volunteer.lastname}</TableCell>
-                    <TableCell>{volunteer.age}</TableCell>
+                    <TableCell>{ formatDistanceToNowStrict(birthdayDate, { locale: es }) }</TableCell>
                     <TableCell>{volunteer.scholarship}</TableCell>
                     <TableCell>{volunteer.hours}</TableCell>
                     <TableCell>
-                        <a href="#edit">Editar</a> | <a href="#borrar">Borrar</a> | <a href={"/volunteer/"+volunteer.id}>Ver mas</a>
+                        <a href={`/edit-volunteer/${volunteer.id}`}>Editar</a> | <a onClick={ () => this.onDeleteButtonClick(volunteer.id) } href="#delete">Borrar</a> | <a href={"/volunteer/"+volunteer.id}>Ver mas</a>
                     </TableCell>
                 </TableRow>
             );
