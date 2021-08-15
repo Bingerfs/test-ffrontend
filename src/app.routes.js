@@ -5,27 +5,30 @@ import Login from './features/user-register/components/login/login.component'
 import Home from './features/volunteer-register/components/home/home.component'
 import VolunteerList from './features/volunteer-show/components/volunteer-list/VolunteerListComponent';
 import EventList from './features/event-show/components/event-list/EventListComponent';
-import Navbar from './shared/components/navbar/navbar.component';
 import VolunteerDescription from './features/volunteer-show/components/volunteer-description/VolunteerDescriptionComponent';
 import VolunteerAddEvent from './features/volunteer-show/components/volunteer-description/VolunteerAddEventComponent';
 import VolunteerEventsList from './features/volunteer-show/components/volunteer-description/VolunteerEventsComponent';
 
 import CreateVolunteer from './features/volunteer-register/components/create/createVolunteer.component'
 import CreateEvent from './features/event-register/components/event-create/CreateEventComponent';
+import PrivateRoute from "./shared/components/private-route.component";
+import TokenManagerService from "./features/user-register/services/token-manager.service";
 
-var currentLocation = window.location.pathname;
-console.log(currentLocation);
-var isLogin = currentLocation == '/login';
 
+var isLogin = TokenManagerService.isThereAccessToken();
+console.log(isLogin);
 const AppRoutes = () => (
-  <>
   
   <Router>
-    {isLogin ? (<div></div> ): (<Navbar></Navbar>   )}
-   <Route exact path="/" render={() => <Redirect to="/login" />} />
+    {/* {isLogin ? ( <Navbar></Navbar>): (<Login></Login>   )} */}
     <Switch>
       <Suspense fallback={<h1>Cargando...</h1>}>
-        <Route exact path="/login" component={Login} />
+       <Route exact strict path="*" render={() => <Redirect to="/login" />} />
+       <PrivateRoute
+          path="/login"
+          component={Login}
+          currentComponent="login"
+        />        
         <Route exact path="/home" component={Home} />
         <Route exact path="/createVolunteer" component={CreateVolunteer} />
         <Route exact path= "/createEvent" component={CreateEvent} />
@@ -39,7 +42,6 @@ const AppRoutes = () => (
       </Suspense>
     </Switch>
   </Router>
-  </>
 );
 
 export default AppRoutes;
