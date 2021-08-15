@@ -3,7 +3,7 @@ import React, { Component } from "react";
 import AuthService from '../../services/auth.service';
 
 import {
-  Grid, Paper, Container
+  Grid, Paper, Container, Link, MenuItem
 } from '@material-ui/core';
 import Avatar from '@material-ui/core/Avatar';
 import {
@@ -55,9 +55,8 @@ export default class Login extends Component {
     AuthService.login(username, password).then(
         () => {
           this.setState({ isTheLoginSuccessful: true, isTheLoginEnded: true, isSubmitting: false });
-
-          this.props.history.push("/home");
-          window.location.reload();
+          console.log(this.state.isTheLoginSuccessful)
+       //   this.props.history.push("/home");
         },
         error => {
             this.setState({ isTheLoginEnded: true, isSubmitting: false });

@@ -7,6 +7,11 @@ import { Grid } from '@material-ui/core';
 import { NavLink, Link } from 'react-router-dom';
 
 class Navbar extends Component {
+ 
+    logout(){
+        localStorage.removeItem("user");
+        window.location.reload();    
+    }
     render() {
         return (
 
@@ -49,7 +54,7 @@ class Navbar extends Component {
                         direction="row"
                         justify="flex-end"
                         alignItems="center">
-                        <MenuItem>
+                        <MenuItem onClick={this.logout}>
                             <p>CERRAR SESIÓN</p>
                         </MenuItem>
                     </Grid>
