@@ -24,7 +24,7 @@ export default class CreateVolunteer extends Component {
                 birthday: '',
                 schooling: '',
                 scholarship: '',
-                scholar: false,
+                isScholar: false,
                 descriptionOutstandingExperience: '',
                 placeOutstandingExperience: '',
                 durationOutstandingExperience: '',
@@ -36,25 +36,39 @@ export default class CreateVolunteer extends Component {
      }
      
  }
+
+ componentDidMount() {
+     if(this.props.match.params.id) {
+         userService.searchVolunteerById(this.props.match.params.id).then(volunteer =>{
+             this.setState({ volunteerData: volunteer.data });
+         });
+     }
+ }
+
  syncChanges(value,property){
      let state ={};
      state[property]=value;
      this.setState(state);
  }
- submitCreateVolunteer(values){
-     console.log(values);
-     userService.createVolunteer(values);
-     this.props.history.push("/volunteers");
 
+ async submitVolunteer(values) {
+     if(this.props.match.params.id) {
+        await userService.updateVolunteer(this.props.match.params.id, values);    
+     } else {
+        await userService.createVolunteer(values);
+     }
+     this.props.history.push("/volunteers");
  }
  
   
   render() {
-    console.log(this.state);
+    const { volunteerData } = this.state;
+    console.log(volunteerData);
     return (
         <Formik
-        initialValues = {this.state.volunteerData}
-        onSubmit = {(values)=> this.submitCreateVolunteer(values)}
+        enableReinitialize
+        initialValues = {volunteerData}
+        onSubmit = {(values)=> this.submitVolunteer(values)}
         render ={({
             values, errors, handleChange, handleBlur, touched, handleSubmit, setFieldValue
         })=>(
@@ -148,10 +162,11 @@ export default class CreateVolunteer extends Component {
                     <FormControlLabel
                     control={
                     <Checkbox
-                        value={values.scholar}
+                        checked={ values.isScholar }
+                        value={values.isScholar}
                         onChange={handleChange}
-                        name="scholar"
-                        id="scholar"
+                        name="isScholar"
+                        id="isScholar"
                         color="primary"
                     />
                     }
@@ -197,7 +212,7 @@ export default class CreateVolunteer extends Component {
                                 name="placeOutstandingExperience"  
                                 label="Lugar"
                                 type="placeOutstandingExperience" 
-                                value={this.state.placeOutstandingExperience}/>
+                                value={values.placeOutstandingExperience}/>
                             </Grid>
                     <Grid item xs={6} >
 
@@ -207,7 +222,7 @@ export default class CreateVolunteer extends Component {
                                 name="durationOutstandingExperience"  
                                 label="Duración"
                                 type="durationOutstandingExperience" 
-                                value={this.state.durationOutstandingExperience}/>
+                                value={values.durationOutstandingExperience}/>
                             </Grid>
                             
                     <Grid item xs={12} >
@@ -219,7 +234,7 @@ export default class CreateVolunteer extends Component {
                             name="descriptionVolunteerExperience"  
                             label="Cuéntanos tu experiencia de voluntariado"
                             type="descriptionVolunteerExperience" 
-                            value={this.state.descriptionVolunteerExperience}
+                            value={values.descriptionVolunteerExperience}
                             multiline
                             variant="outlined"
                             rows={4}
@@ -236,7 +251,7 @@ export default class CreateVolunteer extends Component {
                         name="placeVolunteerExperience"  
                         label="Lugar"
                         type="placeVolunteerExperience" 
-                        value={this.state.placeVolunteerExperience}/>
+                        value={values.placeVolunteerExperience}/>
                     </Grid>
                     <Grid item xs={6} >
 
@@ -246,7 +261,7 @@ export default class CreateVolunteer extends Component {
                         name="durationVolunteerExperience"  
                         label="Duración"
                         type="durationVolunteerExperience" 
-                        value={this.state.durationVolunteerExperience}/>
+                        value={values.durationVolunteerExperience}/>
                     </Grid>
               
               <br />

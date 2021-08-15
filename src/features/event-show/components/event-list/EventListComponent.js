@@ -38,6 +38,16 @@ class EventList extends Component{
         });
     }
 
+    onDeleteClick = (id) => {
+        UserService.deleteEventById(id).then(res => {
+            let updatedList = this.state.events;
+            updatedList = updatedList.filter(event => event.id !== id);
+            this.setState({
+                events: updatedList
+            });
+        });
+    }
+
 
     render(){
         const rows = this.state.events.map((event)=>{
@@ -46,7 +56,7 @@ class EventList extends Component{
                     <TableCell component="th" scope="row">{event.name}</TableCell>
                     <TableCell>{event.description}</TableCell>
                     <TableCell>
-                        <a href="#edit">Editar</a> | <a href="#borrar">Borrar</a>
+                        <a href={`/edit-event/${event.id}`}>Editar</a> | <a href="#borrar" onClick={() => this.onDeleteClick(event.id)}>Borrar</a>
                     </TableCell>
                 </TableRow>
             );

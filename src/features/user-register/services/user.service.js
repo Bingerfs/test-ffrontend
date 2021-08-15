@@ -13,33 +13,52 @@ class UserService {
   }
 
   searchVolunteer(name){
-    return axios.post(API_URL + "volunteers", {name});
+    return axios.get(API_URL + 'volunteers', { params: { name } });
   }
 
   searchEvent(name){
-    return axios.post(API_URL + "events", {name});
+    return axios.get(API_URL + "events", { params: { name } });
+  }
+
+  searchEventById(id) {
+    return axios.get(API_URL + 'events/event/' + id);
   }
 
   createVolunteer(volunteerData){
-    return axios.post(API_URL + "createVolunteer", {volunteerData});
+    return axios.post(API_URL + "volunteers", { volunteerData });
   }
 
-  createEvent(values){
+  createEvent(values) {
     return axios.post(API_URL + "createEvent", {name: values.name, description: values.description, inCharge: values.inCharge});
   }
 
-  searchVolunteerById(id){
-    return axios.post(API_URL + "volunteer", {id});
+  searchVolunteerById(id) {
+    return axios.get(API_URL + "volunteers/volunteer/" + id);
   }
 
-  addEventToVolunteer(startingDate, endingDate, hours, institution, description, volunteer, event){
-    return axios.post(API_URL + "addVolunteerEvent", {startingDate, endingDate, hours, institution, description, volunteer, event});
+  addEventToVolunteer(startingDate, endingDate, hours, institution, description, volunteerId, eventId){
+    return axios.post(API_URL + 'volunteers/volunteer/' + volunteerId + '/events', {startingDate, endingDate, hours, institution, description, eventId});
   }
 
   searchVolunteerEvents(volunteer, eventName){
-    return axios.post(API_URL + "getVolunteerEvents", {volunteer, eventName});
+    return axios.get(API_URL + 'volunteers/volunteer/' + volunteer + '/events', { params: { eventName } });
   }
 
+  deleteVolunteerById(id) {
+    return axios.delete(API_URL + 'volunteers/volunteer/' + id);
+  }
+
+  updateVolunteer(id, volunteer) {
+    return axios.put(API_URL + 'volunteers/volunteer/' + id, volunteer);
+  }
+
+  deleteEventById(id) {
+    return axios.delete(API_URL + 'events/event/' + id);
+  }
+
+  updateEvent(id, event) {
+    return axios.put(API_URL + 'events/event/' + id, event);
+  }
 }
 
 

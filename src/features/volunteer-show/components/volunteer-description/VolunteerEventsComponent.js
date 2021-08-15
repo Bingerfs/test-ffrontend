@@ -19,7 +19,7 @@ class VolunteerEventsList extends Component{
     }
 
     componentDidMount(){
-        UserService.searchVolunteerEvents(9, this.state.searchString).then((res)=>{
+        UserService.searchVolunteerEvents(this.props.match.params.id, this.state.searchString).then((res)=>{
             const eventsList = res.data;
             this.setState({
                 events: eventsList
@@ -31,7 +31,7 @@ class VolunteerEventsList extends Component{
 
     onSearchInputChange = (event) =>{
         const value = event.target.value;
-        UserService.searchVolunteerEvents(9, value).then((res)=>{
+        UserService.searchVolunteerEvents(this.props.match.params.id, value).then((res)=>{
             this.setState({searchString: value, events: res.data});
         });
     }
