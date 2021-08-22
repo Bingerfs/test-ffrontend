@@ -12,7 +12,7 @@ staging:
     script:
         - npm i
         # your build command
-        - npm run build
+        - CI=false npm run build
         - npx netlify-cli deploy --site $NETLIFY_SITE_ID --auth $NETLIFY_AUTH_TOKEN --prod
     only:
         - develop
@@ -23,9 +23,9 @@ production:
       name: production
     stage: production
     script:
-        - npx i
+        - npm i
         # your build command
-        - npx run build
+        - CI=false npm run build
         - npx netlify-cli deploy --site $NETLIFY_SITE_ID --auth $NETLIFY_AUTH_TOKEN --prod
     only:
         - master
