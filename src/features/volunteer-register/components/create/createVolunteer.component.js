@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 
-import {Grid, Paper,TextField, Container} from '@material-ui/core';
+import {Grid, Paper,TextField, Container, Button,} from '@material-ui/core';
 import Checkbox from '@material-ui/core/Checkbox';  
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import {InputText,ButtonA,} from '../../../../shared/components/form/index';
@@ -8,8 +8,7 @@ import DateFnsUtils from '@date-io/date-fns'
 import { MuiPickersUtilsProvider, KeyboardDatePicker } from '@material-ui/pickers';
 import { Formik } from 'formik';
 import userService from '../../../user-register/services/user.service';
-
-
+import Add from '@material-ui/icons/Add';
 
 export default class CreateVolunteer extends Component {
  constructor(props){
@@ -31,10 +30,13 @@ export default class CreateVolunteer extends Component {
                 descriptionVolunteerExperience: '',
                 placeVolunteerExperience: '',
                 durationVolunteerExperience: '',
-         }
+         },
+         file: null,
+         enabledButton: true
         //  isTheCreateVolunteerSuccessful: false,
      }
-     
+     this.handleFile = this.handleFile.bind(this);
+     this.uploadFile = this.uploadFile.bind(this);
  }
 
  componentDidMount() {
@@ -60,11 +62,43 @@ export default class CreateVolunteer extends Component {
      this.props.history.push("/volunteers");
  }
  
+ async handleFile(e) {
+    e.preventDefault();
+    const file = e.target.files[0];
+    if (file !== undefined) {
+        this.setState({ 
+            file: file,
+            enabledButton: false
+        });
+    }
+  }
+
+  async uploadFile(){
+    userService.upload(this.state.file).then(res => {
+        console.log(res)
+        this.props.history.push("/volunteers");
+    }).catch(err => {
+        alert("Error al cargar el archivo, vuelva a intentarlo y revise el formato.");
+    })
+  }
   
   render() {
     const { volunteerData } = this.state;
-    console.log(volunteerData);
     return (
+        <div>
+            <div   style={{  textAlign: 'center' }} >
+                <input
+                    type="file"
+                    accept=".xlsx"                
+                    onChange={(e) => this.handleFile(e)}
+                />      
+                <Button  disabled = {this.state.enabledButton} color="primary" size="large" component="label" onClick={this.uploadFile}>
+                    <Add />
+                        <p variant="subtitle2">
+                        SUBIR
+                        </p>
+                </Button>
+            </div>
         <Formik
         enableReinitialize
         initialValues = {volunteerData}
@@ -73,7 +107,7 @@ export default class CreateVolunteer extends Component {
             values, errors, handleChange, handleBlur, touched, handleSubmit, setFieldValue
         })=>(
         <Container   maxWidth="sm"  style={{  minHeight: '100vh' }}  >
-        <Paper  elevation={1} variant="outlined" style={{marginTop: '20%'}} >
+        <Paper  elevation={1} variant="outlined" style={{marginTop: '2%'}} >
         <Container maxWidth="xl" >
         <h3> Completa los datos para registrar un nuevo voluntario</h3>
           <form onSubmit={handleSubmit}>
@@ -285,6 +319,11 @@ export default class CreateVolunteer extends Component {
         </Paper >
 
       </Container >
+      
     )
-  } />);
+  
+  } 
+  />
+ 
+</div>);
 }}

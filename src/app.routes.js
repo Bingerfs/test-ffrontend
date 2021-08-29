@@ -16,7 +16,6 @@ import TokenManagerService from "./features/user-register/services/token-manager
 
 
 var isLogin = TokenManagerService.isThereAccessToken();
-console.log(isLogin);
 const AppRoutes = () => (
   
   <Router>
@@ -29,7 +28,7 @@ const AppRoutes = () => (
           component={Login}
           currentComponent="login"
         />        
-        <Route exact path="/home" component={Home} />
+        <PrivateRoute exact path="/home" component={Home} />
         <Route exact path="/createVolunteer" component={CreateVolunteer} />
         <Route exact path= "/createEvent" component={CreateEvent} />
         <Route exact path="/volunteers" component={VolunteerList} />

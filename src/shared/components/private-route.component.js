@@ -9,10 +9,9 @@ const PrivateRoute = (privateRouteProps) => (
       if (localStorage.getItem("user"))
         TokenManagerService.manageTheCurrentToken();
       let response;
-      console.log(TokenManagerService.isThereAccessToken())
       if (TokenManagerService.isThereAccessToken()) {
         if (privateRouteProps.currentComponent === "login" ) {
-          if (AuthService.getUserRole() === "ROLE_ADMIN")
+          if (AuthService.getUserRole())
             response = (
               <Route
                 exact
