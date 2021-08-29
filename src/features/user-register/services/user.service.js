@@ -59,6 +59,18 @@ class UserService {
   updateEvent(id, event) {
     return axios.put(API_URL + 'events/event/' + id, event);
   }
+
+  upload(file) {
+    let formData = new FormData();
+
+    formData.append("file", file);
+
+    return axios.post(API_URL +"upload-file", formData, {
+      headers: {
+        "Content-Type": "multipart/form-data",
+      }    
+    });
+  }
 }
 
 

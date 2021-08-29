@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import TableRow from '@material-ui/core/TableRow';
-import { TableCell, TableContainer, Paper, TableHead, Table, TableBody, Grid, Container, TextField, IconButton, InputBase, SvgIcon, Fab, Box } from '@material-ui/core';
+import { TableCell, TableContainer, Paper, TableHead, Table, TableBody, Grid, Container, TextField, IconButton, InputBase, Button, Fab, Box } from '@material-ui/core';
 import Add from '@material-ui/icons/Add';
 import { parse, formatDistanceToNowStrict } from 'date-fns';
 import { es } from 'date-fns/locale';
@@ -47,7 +47,7 @@ class VolunteerList extends Component{
 
     render(){
         const rows = this.state.volunteers.map((volunteer)=>{
-            const birthdayDate = parse(volunteer.birthday, 'dd/MM/yyyy', new Date());
+            const birthdayDate = new Date(volunteer.birthday);
             return (
                 <TableRow key={volunteer.id}>
                     <TableCell component="th" scope="row">{volunteer.name} {volunteer.lastname}</TableCell>
@@ -67,6 +67,22 @@ class VolunteerList extends Component{
                     <Box>
                         <TextField label="Buscar" type="search" variant="outlined" component={Paper} onChange = {this.onSearchInputChange} id="searchInput"/>
                     </Box>
+
+{/*             <label htmlFor="contained-button-file">
+            <Button variant="contained" color="primary" size="large" component="label">
+              <Add className="upload-image__icon" />
+              <p variant="subtitle2">
+               SUBIR
+              </p>
+              <input
+                key={this.state.imagePreviewUrl}
+                style={{ display: 'none' }}
+                type="file"
+                accept=".xlsx, .xls, .csv"                
+                onChange={(e) => this.handleImageChange(e)}
+              />
+            </Button>
+      </label> */}
                     <Box>
                         <Link to="/createVolunteer">
                         <Fab color="primary" component={Paper}>
